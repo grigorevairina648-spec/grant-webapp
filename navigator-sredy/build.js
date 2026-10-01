@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const SITE = (process.env.SITE_URL || 'https://navigator-sredy.example').replace(/\/$/, ''); // замените на реальный домен
+const SITE = (process.env.SITE_URL || 'https://reliable-starburst-8b421e.netlify.app').replace(/\/$/, ''); // при смене домена: SITE_URL=... node build.js
 const ORG = 'АНО «Навигатор среды»';
 const ORG_FULL = 'Автономная некоммерческая организация «Навигатор среды: доступные решения для туризма и досуга»';
 const PHONE = '+7 (913) 182-96-54';

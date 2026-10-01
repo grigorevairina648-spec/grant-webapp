@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
-Sitemap: https://navigator-sredy.example/sitemap.xml
+Sitemap: https://reliable-starburst-8b421e.netlify.app/sitemap.xml
