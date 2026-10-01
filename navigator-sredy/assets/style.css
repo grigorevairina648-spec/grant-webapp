@@ -266,3 +266,6 @@ a.card { text-decoration: none; color: inherit; display: block; }
 .legal p, .legal li { color: var(--ink); }
 .legal ul { padding-left: 22px; }
 .footer__legal a { text-decoration: underline; }
+
+.yform { width: 100%; height: 980px; border: 0; border-radius: var(--r-sm); background: #fff; }
+@media (min-width: 700px) { .yform { height: 900px; } }

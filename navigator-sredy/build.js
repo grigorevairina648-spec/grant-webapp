@@ -10,6 +10,9 @@ const ORG_FULL = 'Автономная некоммерческая органи
 const PHONE = '+7 (913) 182-96-54';
 const PHONE_HREF = '+79131829654';
 const EMAIL = 'grigoryeva_irina@bk.ru';
+// Форма «Яндекс Форм» (хранение и уведомления в России). Укажите идентификатор формы: YANDEX_FORM_ID=xxxx node build.js
+// Пока он пуст, используется форма Netlify.
+const YANDEX_FORM_ID = process.env.YANDEX_FORM_ID || '';
 const ADDRESS = '660125, Красноярский край, г. Красноярск, пр-кт Комсомольский, д. 11, кв. 53';
 
 // ---------- иллюстрации-заглушки вместо фотографий ----------
@@ -227,7 +230,10 @@ const secCta = () => `<section class="cta" id="svyaz"><div class="wrap"><h2>Ес
 <p>Расскажите нам о ней. Вместе разберёмся, какое решение можно реализовать.</p>
 <div class="btn-row"><a class="btn btn--sun" href="/kontakty/#form">Связаться с нами</a><a class="btn btn--line" href="tel:${PHONE_HREF}">${PHONE}</a></div></div></section>`;
 
-const form = () => `<form class="form" id="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/kontakty/?sent=1">
+const hintP = `<p class="hint">Отправляя форму, вы соглашаетесь на обработку указанных данных для ответа на ваше обращение. Подробнее — в <a href="/politika-konfidentsialnosti/">политике обработки персональных данных</a>.</p>`;
+const yandexForm = () => `<div class="form" id="form"><iframe class="yform" src="https://forms.yandex.ru/u/${YANDEX_FORM_ID}/?iframe=1" title="Форма обратной связи" loading="lazy"></iframe>
+<p class="hint">Форма не открылась? <a href="https://forms.yandex.ru/u/${YANDEX_FORM_ID}/" target="_blank" rel="noopener">Откройте её в новой вкладке</a> или напишите на <a href="mailto:${EMAIL}">${EMAIL}</a>.</p>${hintP}</div>`;
+const form = () => YANDEX_FORM_ID ? yandexForm() : `<form class="form" id="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/kontakty/?sent=1">
 <input type="hidden" name="form-name" value="contact">
 <p class="hp"><label>Не заполняйте: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
 <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" autocomplete="name" required></div>
@@ -237,7 +243,7 @@ const form = () => `<form class="form" id="form" name="contact" method="POST" da
 <option value="">Выберите тему</option><option value="routes">Доступные маршруты</option><option value="assessment">Оценка доступности</option><option value="passport">Паспорт доступности</option><option value="training">Обучение</option><option value="consulting">Консультация</option><option value="project">Совместный проект</option><option value="partner">Партнёрство</option><option value="other">Другое</option></select></div>
 <div class="field"><label for="f-msg">Сообщение</label><textarea id="f-msg" name="message"></textarea></div>
 <button class="btn btn--sun" type="submit">Отправить</button>
-<p class="hint">Отправляя форму, вы соглашаетесь на обработку указанных данных для ответа на ваше обращение. Подробнее — в <a href="/politika-konfidentsialnosti/">политике обработки персональных данных</a>.</p>
+${hintP}
 <div class="form-status" role="status" aria-live="polite"></div></form>`;
 
 const pageHead = (crumb, h1, lead) => `<section class="page-hero"><div class="wrap"><p class="breadcrumbs"><a href="/">Главная</a> / ${crumb}</p><h1>${h1}</h1>${lead ? `<p class="lead" style="margin-top:18px">${lead}</p>` : ''}</div></section>`;
@@ -368,7 +374,7 @@ pages.push({
 <p>Ваше согласие, которое вы даёте, отправляя форму на сайте.</p>
 
 <h2>5. Как мы обрабатываем данные</h2>
-<p>Обработка включает сбор, запись, хранение, использование и удаление данных. Заявки из формы принимает сервис Netlify, на котором размещён сайт; сообщения могут также направляться на электронную почту Оператора. Мы не продаём данные и не передаём их третьим лицам, кроме случаев, предусмотренных законом.</p>
+<p>Обработка включает сбор, запись, хранение, использование и удаление данных. ${YANDEX_FORM_ID ? 'Заявки из формы принимает сервис «Яндекс Формы»; ответы поступают Оператору на электронную почту.' : 'Заявки из формы принимает сервис Netlify, на котором размещён сайт; сообщения могут также направляться на электронную почту Оператора.'} Мы не продаём данные и не передаём их третьим лицам, кроме случаев, предусмотренных законом.</p>
 <p>Оператор принимает организационные и технические меры для защиты данных от неправомерного доступа, изменения и распространения.</p>
 
 <h2>6. Срок хранения</h2>
