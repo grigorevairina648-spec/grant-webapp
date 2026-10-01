@@ -260,3 +260,9 @@ a.card { text-decoration: none; color: inherit; display: block; }
   html { scroll-behavior: auto; }
   * { transition: none !important; }
 }
+
+/* Страница политики */
+.legal h2 { font-size: 1.35rem; margin: 30px 0 10px; }
+.legal p, .legal li { color: var(--ink); }
+.legal ul { padding-left: 22px; }
+.footer__legal a { text-decoration: underline; }
