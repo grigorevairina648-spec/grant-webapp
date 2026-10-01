@@ -1,0 +1,50 @@
+# Decap CMS: самостоятельное добавление проектов и новостей.
+# Требуется Netlify Identity + Git Gateway (Site settings → Identity → Enable, затем Services → Git Gateway).
+backend:
+  name: git-gateway
+  branch: main   # ветка, из которой публикуется сайт
+
+locale: ru
+media_folder: "navigator-sredy/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: projects
+    label: Проекты
+    files:
+      - name: projects
+        label: Список проектов
+        file: "navigator-sredy/data/projects.json"
+        fields:
+          - label: Проекты
+            name: items
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Название, name: title, widget: string }
+              - { label: Фотография, name: image, widget: image, required: false }
+              - { label: Описание фотографии (alt), name: alt, widget: string, required: false }
+              - { label: Краткое описание, name: summary, widget: text }
+              - { label: Для кого проект, name: audience, widget: string }
+              - { label: Что было сделано, name: done, widget: text }
+              - { label: Результат, name: result, widget: text }
+              - { label: Ссылка «Подробнее», name: url, widget: string, required: false }
+  - name: news
+    label: Новости и события
+    files:
+      - name: news
+        label: Список новостей
+        file: "navigator-sredy/data/news.json"
+        fields:
+          - label: Новости
+            name: items
+            widget: list
+            summary: "{{fields.date}} — {{fields.title}}"
+            fields:
+              - { label: Дата, name: date, widget: date, format: "YYYY-MM-DD" }
+              - { label: Рубрика, name: tag, widget: select, options: [Мероприятие, Новый маршрут, Проект, Грант, Обучение, Публикация, Новость организации] }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Фотография, name: image, widget: image, required: false }
+              - { label: Описание фотографии (alt), name: alt, widget: string, required: false }
+              - { label: Краткое описание, name: summary, widget: text }
+              - { label: Ссылка, name: url, widget: string, required: false }

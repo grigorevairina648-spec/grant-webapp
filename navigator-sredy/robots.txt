@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Sitemap: https://reliable-starburst-8b421e.netlify.app/sitemap.xml
